@@ -1,16 +1,17 @@
 #use_bpm 107
-#Vars for funtion
 
-s05 = 0.5 #+
-s1 = 1 #+
-B = 0.5 #push
+#xxxxxxxxxxxxxxxxxxxxxx
+#s05 = 0.5 #+
+#s1 = 1 #+
+#B = 0.5 #push
 #BB = push B x2
 #BBB = push B x3
 
-componentsSleep = [s05,s1]
-componentsBass = ["B","BB","BBB"]
+#componentsSleep = [s05,s1]
+#componentsBass = ["B","BB","BBB"]
 
 #Funtions 
+=begin
 define :randomPattern do 
     sleepBassNow = []
     patternTime = 0
@@ -76,6 +77,37 @@ define :randomPattern do
     end
     
     return sleepBassNow
+end
+=end
+#xxxxxxxxxxxxxxxxxxxxxx
+#Vars for funtions
+bassPossibilities = [[1],[1.5],[0.5,1],[0.5,1.5],[0.5,0.5,1],[0.5,0.5,1.5]]
+
+#Funtions 
+# Bass Pattern Generator
+define :randomPattern do
+    pattern = []
+    total = 0
+    adder = (5..20).to_a.choose #Times to add bass and sleep
+    # generate candidate pattern
+    for i in 1..adder
+      bassPossibilityNow = bassPossibilities.choose
+      pattern += bassPossibilityNow
+    end
+    total = (pattern.sum*2).to_i
+    # comprobar condición
+    while total % 8 != 0 || total > 24
+      pattern = []
+      total = 0
+      adder = (5..20).to_a.choose #Times to add bass and sleep
+      # generate candidate pattern
+      for i in 1..adder
+        bassPossibilityNow = bassPossibilities.choose
+        pattern += bassPossibilityNow
+      end
+      total = (pattern.sum*2).to_i
+    end
+    return pattern
 end
 
 #Vars for song
