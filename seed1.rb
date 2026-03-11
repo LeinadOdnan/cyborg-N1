@@ -1,85 +1,5 @@
 #use_bpm 107
 
-#xxxxxxxxxxxxxxxxxxxxxx
-#s05 = 0.5 #+
-#s1 = 1 #+
-#B = 0.5 #push
-#BB = push B x2
-#BBB = push B x3
-
-#componentsSleep = [s05,s1]
-#componentsBass = ["B","BB","BBB"]
-
-#Funtions 
-=begin
-define :randomPattern do 
-    sleepBassNow = []
-    patternTime = 0
-    multiplier = 1
-
-    #To choose the syncopated bass
-    componentsBassNow = componentsBass.choose
-    if componentsBassNow == "B"
-      sleepBassNow.push(B)
-      
-    elsif componentsBassNow == "BB"
-      sleepBassNow.push(B)
-      sleepBassNow.push(B)
-      
-    elsif componentsBassNow == "BBB"
-      sleepBassNow.push(B)
-      sleepBassNow.push(B)
-      sleepBassNow.push(B)
-    end
-    
-    patternTime = sleepBassNow.sum
-    #since here un a big while, 
-    while patternTime != 4*multiplier
-      #to updating multiplier
-      if patternTime > 4*multiplier
-        multiplier = multiplier + 1
-      end
-
-      #To choose the sleep
-      componentsSleepNow = componentsSleep.choose
-      if componentsSleepNow == s05
-        sleepBassNow[-1] = sleepBassNow[-1] + s05
-        
-      elsif componentsSleepNow == s1
-        sleepBassNow[-1] = sleepBassNow[-1] + s1
-      end
-      patternTime = sleepBassNow.sum
-
-      #here a while inside of big while
-      while patternTime != 4*multiplier
-        #to updating multiplier
-        if patternTime > 4*multiplier
-          multiplier = multiplier + 1
-        end
-
-        #To choose the syncopated bass
-        componentsBassNow = componentsBass.choose
-        if componentsBassNow == "B"
-          sleepBassNow.push(B)
-      
-        elsif componentsBassNow == "BB"
-          sleepBassNow.push(B)
-          sleepBassNow.push(B)
-      
-        elsif componentsBassNow == "BBB"
-          sleepBassNow.push(B)
-          sleepBassNow.push(B)
-          sleepBassNow.push(B)
-        end
-
-        patternTime = sleepBassNow.sum
-      end
-    end
-    
-    return sleepBassNow
-end
-=end
-#xxxxxxxxxxxxxxxxxxxxxx
 #Vars for funtions
 bassPossibilities = [[1],[1.5],[0.5,1],[0.5,1.5],[0.5,0.5,1],[0.5,0.5,1.5]]
 
@@ -89,35 +9,37 @@ define :randomPattern do
     pattern = []
     total = 0
     adder = (5..20).to_a.choose #Times to add bass and sleep
-    # generate candidate pattern
-    for i in 1..adder
-      bassPossibilityNow = bassPossibilities.choose
-      pattern += bassPossibilityNow
-    end
-    total = (pattern.sum*2).to_i
-    # comprobar condición
-    while total % 8 != 0 || total > 24
+    while true
       pattern = []
-      total = 0
-      adder = (5..20).to_a.choose #Times to add bass and sleep
       # generate candidate pattern
-      for i in 1..adder
-        bassPossibilityNow = bassPossibilities.choose
-        pattern += bassPossibilityNow
+      adder.times do
+        pattern += bassPossibilities.choose
       end
-      total = (pattern.sum*2).to_i
+      total = (pattern.sum*2).to_i #Total time
+      if total % 8 == 0 && total <= 24 #checking the time
+        return pattern
+      end
     end
-    return pattern
 end
 
 #Vars for song
 introBass = (ring :as2, :cs3, :f2, :cs3, :gs2)
-introSleepBass = randomPattern
+introSleepBass1 = randomPattern
+introSleepBass2 = randomPattern
+introSleepBass3 = randomPattern
 #introSleepkick = [2, 1, 1]
 
 live_loop :bass do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
   use_synth :fm
-  play_pattern_timed introBass, introSleepBass, release: 0.3, amp: rrand(0.8,1.2)
+  10.times do
+    play_pattern_timed introBass, introSleepBass1, release: 0.3, amp: rrand(0.8,1.2)
+  end
+  10.times do
+    play_pattern_timed introBass, introSleepBass2, release: 0.3, amp: rrand(0.8,1.2)
+  end
+  10.times do
+    play_pattern_timed introBass, introSleepBass3, release: 0.3, amp: rrand(0.8,1.2)
+  end
 end
 
 live_loop :kick do # This one accentuates the bass.
