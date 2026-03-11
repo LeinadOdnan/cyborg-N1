@@ -3,23 +3,23 @@
 #Vars for funtions
 bassPossibilities = [[1],[1.5],[0.5,1],[0.5,1.5],[0.5,0.5,1],[0.5,0.5,1.5]]
 
-#Funtions 
+#Funtions
 # Bass Pattern Generator
 define :randomPattern do
+  pattern = []
+  total = 0
+  adder = (3..8).to_a.choose #Times to add bass and sleep
+  while true
     pattern = []
-    total = 0
-    adder = (5..20).to_a.choose #Times to add bass and sleep
-    while true
-      pattern = []
-      # generate candidate pattern
-      adder.times do
-        pattern += bassPossibilities.choose
-      end
-      total = (pattern.sum*2).to_i #Total time
-      if total % 8 == 0 && total <= 24 #checking the time
-        return pattern
-      end
-    end
+    # generate candidate pattern
+    adder.times do
+    pattern += bassPossibilities.choose
+  end
+  total = (pattern.sum*2).to_i #Total time
+  if total % 8 == 0 && total <= 24 #checking the time
+    return pattern
+  end
+end
 end
 
 #Vars for song
@@ -32,13 +32,24 @@ introSleepBass3 = randomPattern
 live_loop :bass do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
   use_synth :fm
   10.times do
-    play_pattern_timed introBass, introSleepBass1, release: 0.3, amp: rrand(0.8,1.2)
+    introSleepBass1.each do |s|
+      play introBass.tick, release: 0.3, amp: rrand(0.8,1.2)
+      sleep s
+    end
   end
+  
   10.times do
-    play_pattern_timed introBass, introSleepBass2, release: 0.3, amp: rrand(0.8,1.2)
+    introSleepBass2.each do |s|
+      play introBass.tick, release: 0.3, amp: rrand(0.8,1.2)
+      sleep s
+    end
   end
+  
   10.times do
-    play_pattern_timed introBass, introSleepBass3, release: 0.3, amp: rrand(0.8,1.2)
+    introSleepBass3.each do |s|
+      play introBass.tick, release: 0.3, amp: rrand(0.8,1.2)
+      sleep s
+    end
   end
 end
 
