@@ -6,28 +6,53 @@ bassPossibilities = [[1],[1.5],[0.5,1],[0.5,1.5],[0.5,0.5,1],[0.5,0.5,1.5]]
 #Funtions
 # Bass Pattern Generator
 define :randomPattern do
-  pattern = []
-  total = 0
-  adder = (3..8).to_a.choose #Times to add bass and sleep
+  adder = (3..8).to_a.choose
+  
   while true
     pattern = []
-    # generate candidate pattern
+    
     adder.times do
-    pattern += bassPossibilities.choose
-  end
-  total = (pattern.sum*2).to_i #Total time
-  if total % 8 == 0 && total <= 24 #checking the time
-    return pattern
+      pattern += bassPossibilities.choose
+    end
+  
+    total = (pattern.sum * 2).to_i
+  
+    if total % 8 == 0 && total <= 24
+      return pattern
+    end
   end
 end
+
+
+#Kick Pattern Generator
+define :kickBeats do |hits, beats|
+  grid = (0...(beats*2)).map{|i| i*0.5}
+  introGridKick = grid.shuffle.take(hits).sort
+  
+  sleeps = []
+  last = 0
+  
+  introGridKick.each do |p|
+    sleeps.push(p - last)
+    last = p
+  end
+  
+  sleeps.push(beats - last)
+  
+  return sleeps
 end
 
 #Vars for song
+#Bass
 introBass = (ring :as2, :cs3, :f2, :cs3, :gs2)
 introSleepBass1 = randomPattern
 introSleepBass2 = randomPattern
 introSleepBass3 = randomPattern
-#introSleepkick = [2, 1, 1]
+
+#Kick
+introSleepKick1 = kickBeats(introSleepBass1.length - 2, (introSleepBass1.sum).to_i)
+introSleepKick2 = kickBeats(introSleepBass2.length - 2, (introSleepBass2.sum).to_i)
+introSleepKick3 = kickBeats(introSleepBass3.length - 2, (introSleepBass3.sum).to_i)
 
 live_loop :bass do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
   use_synth :fm
@@ -51,11 +76,32 @@ live_loop :bass do #This leads the move along the part. We can change note, amp 
       sleep s
     end
   end
+  stop
 end
 
-live_loop :kick do # This one accentuates the bass.
-  sample :bd_sone, amp: 1.5
-  sleep introSleepkick.tick
+live_loop :kick do # This one accentuates the bass ... sometimes.
+  10.times do
+    introSleepKick1[0...-1].each do |s|
+      sleep s
+      sample :bd_sone, amp: 1.5
+    end
+    sleep introSleepKick1[-1]
+  end
+  10.times do
+    introSleepKick2[0...-1].each do |s|
+      sleep s
+      sample :bd_sone, amp: 1.5
+    end
+    sleep introSleepKick2[-1]
+  end
+  10.times do
+    introSleepKick3[0...-1].each do |s|
+      sleep s
+      sample :bd_sone, amp: 1.5
+    end
+    sleep introSleepKick3[-1]
+  end
+  stop
 end
 
 live_loop :clap do
