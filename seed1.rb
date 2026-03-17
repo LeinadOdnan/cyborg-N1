@@ -2,6 +2,7 @@
 
 #Vars for funtions
 bassPossibilities = [[1],[1.5],[0.5,1],[0.5,1.5],[0.5,0.5,1],[0.5,0.5,1.5]]
+use_random_seed Time.now.to_i #Always different pattern
 
 #Funtions
 # Bass Pattern Generator
@@ -48,15 +49,21 @@ introBass = (ring :as2, :cs3, :f2, :cs3, :gs2)
 introSleepBass1 = randomPattern
 introSleepBass2 = randomPattern
 introSleepBass3 = randomPattern
+introSleepBass4 = randomPattern
+
+#trumpet
+introTrumpet = (ring :cs4, :ds4, :f4)
+introSleepTrumpet3 = randomPattern
 
 #Kick
-introSleepKick1 = kickBeats(introSleepBass1.length - 2, (introSleepBass1.sum).to_i)
 introSleepKick2 = kickBeats(introSleepBass2.length - 2, (introSleepBass2.sum).to_i)
-introSleepKick3 = kickBeats(introSleepBass3.length - 2, (introSleepBass3.sum).to_i)
+introSleepKick3B = kickBeats(introSleepBass3.length - 2, (introSleepBass3.sum).to_i)
+introSleepKick3T = kickBeats(introSleepTrumpet3.length - 2, (introSleepTrumpet3.sum).to_i)
+introSleepKick4 = kickBeats(introSleepBass4.length - 2, (introSleepBass4.sum).to_i)
 
 live_loop :bass do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
   use_synth :fm
-  10.times do
+  5.times do
     introSleepBass1.each do |s|
       play introBass.tick, release: 0.3, amp: rrand(0.8,1.2)
       sleep s
@@ -75,18 +82,20 @@ live_loop :bass do #This leads the move along the part. We can change note, amp 
       play introBass.tick, release: 0.3, amp: rrand(0.8,1.2)
       sleep s
     end
+    sleep introSleepTrumpet3.sum
+  end
+
+  5.times do
+    introSleepBass4.each do |s|
+      play introBass.tick, release: 0.3, amp: rrand(0.8,1.2)
+      sleep s
+    end
   end
   stop
 end
 
 live_loop :kick do # This one accentuates the bass ... sometimes.
-  10.times do
-    introSleepKick1[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 1.5
-    end
-    sleep introSleepKick1[-1]
-  end
+  sleep introSleepBass1.sum*5
   10.times do
     introSleepKick2[0...-1].each do |s|
       sleep s
@@ -95,30 +104,54 @@ live_loop :kick do # This one accentuates the bass ... sometimes.
     sleep introSleepKick2[-1]
   end
   10.times do
-    introSleepKick3[0...-1].each do |s|
+    introSleepKick3B[0...-1].each do |s|
       sleep s
       sample :bd_sone, amp: 1.5
     end
-    sleep introSleepKick3[-1]
+    sleep introSleepKick3B[-1]
+
+    introSleepKick3T[0...-1].each do |s|
+      sleep s
+      sample :bd_sone, amp: 1.5
+    end
+    sleep introSleepKick3T[-1]
+  end
+  5.times do
+    introSleepKick4[0...-1].each do |s|
+      sleep s
+      sample :bd_sone, amp: 1.5
+    end
+    sleep introSleepKick4[-1]
   end
   stop
 end
 
-live_loop :clap do
-  sleep 1
-  sample :perc_snap, amp: 0.6
-  sleep 1
-end
-
 live_loop :trumpet do
   use_synth :prophet
-  sleep 2
-  play :cs4, sustain: 0.6, release: 0.3, amp: 0.8
-  sleep 2
+  sleep introSleepBass1.sum*5
+  sleep introSleepBass2.sum*10
+  10.times do
+    use_synth_defaults release: 0.25, amp: rrand(1, 1.4), cutoff: rrand(100,105), res: 0.9
+    sleep introSleepBass3.sum
+    introSleepTrumpet3.each do |s|
+      play introTrumpet.tick
+      sleep s
+    end
+  end
+  stop
 end
 
-live_loop :tom do
-  sleep 3
-  sample :drum_tom_mid_soft, amp: 2
-  sleep 1
-end
+
+
+#To add in live
+#live_loop :clap do 
+  #sleep 1
+  #sample :perc_snap, amp: 0.6
+  #sleep 1
+#end
+
+#live_loop :tom do
+  #sleep 3
+  #sample :drum_tom_mid_soft, amp: 2
+  #sleep 1
+#end
