@@ -99,14 +99,17 @@ end
 
 
 #To add in live
-#live_loop :clap do 
-  #sleep 1
-  #sample :perc_snap, amp: 0.6
-  #sleep 1
-#end
+live_loop :clap do 
+  sleep 1
+  if get(:clap_on)
+    sample :perc_snap, amp: 0.6
+  end
+  sleep 1
+end
 
-#live_loop :tom do
-  #sleep 3
-  #sample :drum_tom_mid_soft, amp: 2
-  #sleep 1
-#end
+live_loop :tom do
+  if get(:tom_on)
+    sample :drum_tom_mid_soft, amp: 1
+  end
+  sleep 0.5
+end

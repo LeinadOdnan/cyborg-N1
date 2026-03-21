@@ -55,11 +55,15 @@ introSleepBass3Var = randomPattern
 set :introSleepBass3, introSleepBass3Var
 introSleepBass4Var = randomPattern
 set :introSleepBass4, introSleepBass4Var
+danceBrakeSleepBassVar = randomPattern
+set :danceBrakeSleepBass, danceBrakeSleepBassVar
 
 #trumpet
 set :introTrumpet, (ring :cs4, :ds4, :f4)
 introSleepTrumpet3Var = randomPattern
 set :introSleepTrumpet3, introSleepTrumpet3Var
+verseSleepTrumpetVar = randomPattern
+set :verseSleepTrumpet, verseSleepTrumpetVar
 
 #Kick
 introSleepKick2Var = kickBeats(introSleepBass2Var.length - 2, (introSleepBass2Var.sum).to_i)
@@ -70,3 +74,9 @@ introSleepKick3TVar = kickBeats(introSleepTrumpet3Var.length - 2, (introSleepTru
 set :introSleepKick3T, introSleepKick3TVar
 introSleepKick4Var = kickBeats(introSleepBass4Var.length - 2, (introSleepBass4Var.sum).to_i)
 set :introSleepKick4, introSleepKick4Var
+verseSleepKickTVar = kickBeats(verseSleepTrumpetVar.length - 2, (verseSleepTrumpetVar.sum).to_i)
+set :verseSleepKickT, verseSleepKickTVar
+
+#To add in live, control
+set :clap_on, false
+set :tom_on, false
