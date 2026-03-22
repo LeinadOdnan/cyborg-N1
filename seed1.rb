@@ -11,10 +11,10 @@ introTrumpet = get(:introTrumpet)
 introSleepTrumpet3 = get(:introSleepTrumpet3)
 
 #Kick
-introSleepKick2 = get(:introSleepKick2)
-introSleepKick3B = get(:introSleepKick3B)
-introSleepKick3T = get(:introSleepKick3T)
-introSleepKick4 = get(:introSleepKick4)
+playKickIntro2 = get(:playKickIntro2)
+playKickIntro3B = get(:playKickIntro3B)
+playKickIntro3T = get(:playKickIntro3T)
+playKickIntro4B = get(:playKickIntro4B)
 
 live_loop :bass do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
   use_synth :fm
@@ -42,7 +42,7 @@ live_loop :bass do #This leads the move along the part. We can change note, amp 
 
   5.times do
     introSleepBass4.each do |s|
-      play introBass.tick(:introBass), release: 0.3, amp: rrand(0.8,1.2)
+      play introBass.tick(:introBass), release: 0.3, amp: rrand(1,1.2)
       sleep s
     end
   end
@@ -52,31 +52,14 @@ end
 live_loop :kick do # This one accentuates the bass ... sometimes.
   sleep introSleepBass1.sum*5
   10.times do
-    introSleepKick2[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep introSleepKick2[-1]
+    playKickIntro2
   end
   10.times do
-    introSleepKick3B[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep introSleepKick3B[-1]
-
-    introSleepKick3T[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep introSleepKick3T[-1]
+    playKickIntro3B
+    playKickIntro3T
   end
   5.times do
-    introSleepKick4[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep introSleepKick4[-1]
+    playKickIntro4B
   end
   stop
 end
