@@ -11,12 +11,13 @@ introTrumpet = get(:introTrumpet)
 introSleepTrumpet3 = get(:introSleepTrumpet3)
 
 #Kick
-playKickIntro2 = get(:playKickIntro2)
-playKickIntro3B = get(:playKickIntro3B)
-playKickIntro3T = get(:playKickIntro3T)
-playKickIntro4B = get(:playKickIntro4B)
+introSleepKick2 = get(:introSleepKick2)
+introSleepKick3B = get(:introSleepKick3B)
+introSleepKick3T = get(:introSleepKick3T)
+introSleepKick4B = get(:introSleepKick4B)
 
 live_loop :bass do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
+  sync :metro
   use_synth :fm
   5.times do
     introSleepBass1.each do |s|
@@ -50,21 +51,23 @@ live_loop :bass do #This leads the move along the part. We can change note, amp 
 end
 
 live_loop :kick do # This one accentuates the bass ... sometimes.
+  sync :metro
   sleep introSleepBass1.sum*5
   10.times do
-    playKickIntro2
+    playKickPattern(introSleepKick2, 0.8)
   end
   10.times do
-    playKickIntro3B
-    playKickIntro3T
+    playKickPattern(introSleepKick3B, 0.8)
+    playKickPattern(introSleepKick3T, 0.8)
   end
   5.times do
-    playKickIntro4B
+    playKickPattern(introSleepKick4B, 0.8)
   end
   stop
 end
 
 live_loop :trumpet do
+  sync :metro
   use_synth :prophet
   sleep introSleepBass1.sum*5
   sleep introSleepBass2.sum*10
@@ -83,6 +86,7 @@ end
 
 #To add in live
 live_loop :clap do 
+  sync :metro
   sleep 1
   if get(:clap_on)
     sample :perc_snap, amp: 0.6
@@ -91,6 +95,7 @@ live_loop :clap do
 end
 
 live_loop :tom do
+  sync :metro
   if get(:tom_on)
     sample :drum_tom_mid_soft, amp: 1
   end

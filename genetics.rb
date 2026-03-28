@@ -82,31 +82,38 @@ set :verseSleepVoice, verseSleepVoiceVar
 
 #Kick
 introSleepKick2Var = kickBeats(introSleepBass2Var.length - 2, (introSleepBass2Var.sum).to_i)
-playKickIntro2Var = playKickPattern(introSleepKick2Var, 0.8)
-set :playKickIntro2, playKickIntro2Var
+#playKickIntro2Var = playKickPattern(introSleepKick2Var, 0.8)
+#set :playKickIntro2, playKickIntro2Var
+set :introSleepKick2, introSleepKick2Var
 
 introSleepKick3BVar = kickBeats(introSleepBass3Var.length - 2, (introSleepBass3Var.sum).to_i)
-playKickIntro3BVar = playKickPattern(introSleepKick3BVar, 0.8)
-set :playKickIntro3B, playKickIntro3BVar
+#playKickIntro3BVar = playKickPattern(introSleepKick3BVar, 0.8)
+#set :playKickIntro3B, playKickIntro3BVar
+set :introSleepKick3B, introSleepKick3BVar
 
 introSleepKick3TVar = kickBeats(introSleepTrumpet3Var.length - 2, (introSleepTrumpet3Var.sum).to_i)
-playKickIntro3TVar = playKickPattern(introSleepKick3TVar, 0.8)
-set :playKickIntro3T, playKickIntro3TVar
+#playKickIntro3TVar = playKickPattern(introSleepKick3TVar, 0.8)
+#set :playKickIntro3T, playKickIntro3TVar
+set :introSleepKick3T, introSleepKick3TVar
 
 introSleepKick4BVar = kickBeats(introSleepBass4Var.length - 2, (introSleepBass4Var.sum).to_i)
-playKickIntro4BVar = playKickPattern(introSleepKick4BVar, 0.8)
-set :playKickIntro4B, playKickIntro4BVar
+#playKickIntro4BVar = playKickPattern(introSleepKick4BVar, 0.8)
+#set :playKickIntro4B, playKickIntro4BVar
+set :introSleepKick4B, introSleepKick4BVar
 
 verseSleepKickTVar = kickBeats(verseSleepTrumpetVar.length - 2, (verseSleepTrumpetVar.sum).to_i)
-playKickVerseTVar = playKickPattern(verseSleepKickTVar, 0.8)
-set :playKickVerseT, playKickVerseTVar
+#playKickVerseTVar = playKickPattern(verseSleepKickTVar, 0.8)
+#set :playKickVerseT, playKickVerseTVar
+set :verseSleepKickT, verseSleepKickTVar
 
 verseSleepKickVVar = kickBeats(verseSleepVoiceVar.length - 2, (verseSleepVoiceVar.sum).to_i)
-playKickVerseVVar = playKickPattern(verseSleepKickVVar, 0.8)
-set :playKickVerseV, playKickVerseVVar
+#playKickVerseVVar = playKickPattern(verseSleepKickVVar, 0.8)
+#set :playKickVerseV, playKickVerseVVar
+set :verseSleepKickV, verseSleepKickVVar
 #Not do playKickPattern here, so do it in loops into of seeds
 
-#To add in live, control
-set :clap_on, false
-set :tom_on, false
-set :robot_on, false
+
+live_loop :metro do
+  sleep 0.5
+end
+
