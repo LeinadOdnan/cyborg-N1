@@ -8,7 +8,7 @@ introTrumpet = get(:introTrumpet)
 verseSleepTrumpet = get(:verseSleepTrumpet)
 
 #Kick
-introSleepKick4 = get(:introSleepKick4)
+introSleepKick4B = get(:introSleepKick4B)
 verseSleepKickT = get(:verseSleepKickT)
 verseSleepKickV = get(:verseSleepKickV)
 
@@ -16,7 +16,12 @@ verseSleepKickV = get(:verseSleepKickV)
 verseVoice = get(:verseVoice)
 verseSleepVoice = get(:verseSleepVoice)
 
-live_loop :bass do 
+live_loop :bassVerse do
+  if get(:verse)
+  else
+    sync :verse
+  end
+  
   use_synth :fm
   5.times do
     introSleepBass4.each do |s|
@@ -43,47 +48,35 @@ live_loop :bass do
   stop
 end
 
-live_loop :kick do 
+live_loop :kickVerse do
+  if get(:verse)
+  else
+    sync :verse
+  end
+  
   5.times do
-    introSleepKick4[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 1
-    end
-    sleep introSleepKick4[-1]
+    playKickPattern(introSleepKick4B, 0.8)
   end
   10.times do
-    introSleepKick4[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.6
-    end
-    sleep introSleepKick4[-1]
+    playKickPattern(introSleepKick4B, 0.6)
   end
   10.times do
-    introSleepKick4[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep introSleepKick4[-1]
-
-    verseSleepKickT[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep verseSleepKickT[-1]
-
-    verseSleepKickV[0...-1].each do |s|
-      sleep s
-      sample :bd_sone, amp: 0.8
-    end
-    sleep verseSleepKickV[-1]
+    playKickPattern(introSleepKick4B, 0.8)
+    playKickPattern(verseSleepKickT, 0.8)
+    playKickPattern(verseSleepKickV, 0.8)
   end
   stop
 end
 
-live_loop :trumpet do
+live_loop :trumpetVerse do
+  if get(:verse)
+  else
+    sync :verse
+  end
+  
   use_synth :prophet
-  sleep introSleepBass4.sum*5
-  sleep introSleepBass4.sum*10
+  sleep introSleepBass4.sum*1
+  sleep introSleepBass4.sum*2
   10.times do
     use_synth_defaults release: 0.25, amp: rrand(1, 1.4), cutoff: rrand(100,105), res: 0.9
     sleep introSleepBass4.sum
@@ -96,10 +89,15 @@ live_loop :trumpet do
   stop
 end
 
-live_loop :voice do
+live_loop :voiceVerse do
+  if get(:verse)
+  else
+    sync :verse
+  end
+  
   use_synth :prophet
-  sleep introSleepBass4.sum*5
-  sleep introSleepBass4.sum*10
+  sleep introSleepBass4.sum*1
+  sleep introSleepBass4.sum*2
   10.times do
     use_synth_defaults attack: 0.1, sustain: 0.4, release: 0.6, cutoff: 90, res: 0.7, amp: rrand(0.8, 1.1)
     sleep introSleepBass4.sum
@@ -114,7 +112,8 @@ end
 
 
 #To add in live
-live_loop :fx_break do 
+live_loop :fx_break do
+  sync :metro
   if get(:robot_on)
     sample :glitch_robot2, amp: 0.6
   end
