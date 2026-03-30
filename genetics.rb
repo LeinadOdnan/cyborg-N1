@@ -73,12 +73,16 @@ introSleepTrumpet3Var = randomPattern
 set :introSleepTrumpet3, introSleepTrumpet3Var
 verseSleepTrumpetVar = randomPattern
 set :verseSleepTrumpet, verseSleepTrumpetVar
+danceBrakeSleepTrumpetVar = danceBrakeSleepBassVar
+set :danceBrakeSleepTrumpet, danceBrakeSleepTrumpetVar
 
 #fake voice
 #find the notes seemed to bass and trumpet
 set :verseVoice, (ring :c4, :d4, :g3, :a3)
 verseSleepVoiceVar = randomPattern
 set :verseSleepVoice, verseSleepVoiceVar
+danceBrakeSleepVoiceVar = danceBrakeSleepBassVar
+set :danceBrakeSleepVoice, danceBrakeSleepVoiceVar
 
 #Kick
 introSleepKick2Var = kickBeats(introSleepBass2Var.length - 2, (introSleepBass2Var.sum).to_i)
@@ -98,6 +102,9 @@ set :verseSleepKickT, verseSleepKickTVar
 
 verseSleepKickVVar = kickBeats(verseSleepVoiceVar.length - 2, (verseSleepVoiceVar.sum).to_i)
 set :verseSleepKickV, verseSleepKickVVar
+
+danceBrakeSleepKickBVar = kickBeats(danceBrakeSleepBassVar.length - 2, (danceBrakeSleepBassVar.sum).to_i)
+set :danceBrakeSleepKickB, danceBrakeSleepKickBVar
 
 
 live_loop :metro do

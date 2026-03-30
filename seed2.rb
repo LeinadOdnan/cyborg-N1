@@ -25,21 +25,21 @@ live_loop :bassVerse do
   use_synth :fm
   5.times do
     introSleepBass4.each do |s|
-      play introBass.tick(:introBass2), release: 0.3, amp: rrand(1,1.2)
+      play introBass.tick(:verseBass), release: 0.3, amp: rrand(1,1.2)
       sleep s
     end
   end
   
   10.times do
     introSleepBass4.each do |s|
-      play introBass.tick(:introBass2), release: 0.3, amp: rrand(0.8,1)
+      play introBass.tick(:verseBass), release: 0.3, amp: rrand(0.8,1)
       sleep s
     end
   end
   
   10.times do
     introSleepBass4.each do |s|
-      play introBass.tick(:introBass2), release: 0.3, amp: rrand(0.8,1.2)
+      play introBass.tick(:verseBass), release: 0.3, amp: rrand(0.8,1.2)
       sleep s
     end
     sleep verseSleepTrumpet.sum
@@ -75,13 +75,13 @@ live_loop :trumpetVerse do
   end
   
   use_synth :prophet
-  sleep introSleepBass4.sum*1
-  sleep introSleepBass4.sum*2
+  sleep introSleepBass4.sum*5
+  sleep introSleepBass4.sum*10
   10.times do
     use_synth_defaults release: 0.25, amp: rrand(1, 1.4), cutoff: rrand(100,105), res: 0.9
     sleep introSleepBass4.sum
     verseSleepTrumpet.each do |s|
-      play introTrumpet.tick(:introTrumpet2)
+      play introTrumpet.tick(:verseTrumpet)
       sleep s
     end
     sleep verseSleepVoice.sum
@@ -96,14 +96,14 @@ live_loop :voiceVerse do
   end
   
   use_synth :prophet
-  sleep introSleepBass4.sum*1
-  sleep introSleepBass4.sum*2
+  sleep introSleepBass4.sum*5
+  sleep introSleepBass4.sum*10
   10.times do
     use_synth_defaults attack: 0.1, sustain: 0.4, release: 0.6, cutoff: 90, res: 0.7, amp: rrand(0.8, 1.1)
     sleep introSleepBass4.sum
     sleep verseSleepTrumpet.sum
     verseSleepVoice.each do |s|
-      play verseVoice.tick(:verseVoice2)
+      play verseVoice.tick(:verseVoice)
       sleep s
     end
   end

@@ -56,7 +56,7 @@ end
 
 live_loop :kickIntro do # This one accentuates the bass ... sometimes.
   sync :metro
-  sleep introSleepBass1.sum*1
+  sleep introSleepBass1.sum*5
   10.times do
     playKickPattern(introSleepKick2, 0.8)
   end
@@ -73,8 +73,8 @@ end
 live_loop :trumpetIntro do
   sync :metro
   use_synth :prophet
-  sleep introSleepBass1.sum*1
-  sleep introSleepBass2.sum*2
+  sleep introSleepBass1.sum*5
+  sleep introSleepBass2.sum*10
   10.times do
     use_synth_defaults release: 0.25, amp: rrand(1, 1.4), cutoff: rrand(100,105), res: 0.9
     sleep introSleepBass3.sum
