@@ -1,4 +1,6 @@
-#Vars for song
+#Verse
+
+#Vars for seed
 #Bass
 introBass = get(:introBass)
 introSleepBass4 = get(:introSleepBass4)
@@ -45,6 +47,10 @@ live_loop :bassVerse do
     sleep verseSleepTrumpet.sum
     sleep verseSleepVoice.sum
   end
+  sync :metro
+  sleep 0.5
+  cue :danceBrake
+  set :danceBrake, true
   stop
 end
 
@@ -59,6 +65,7 @@ live_loop :kickVerse do
   end
   10.times do
     playKickPattern(introSleepKick4B, 0.6)
+    #add other rhythm instrument
   end
   10.times do
     playKickPattern(introSleepKick4B, 0.8)

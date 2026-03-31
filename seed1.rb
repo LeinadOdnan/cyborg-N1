@@ -1,4 +1,6 @@
-#Vars for song
+#Intro
+
+#Vars for seed
 #Bass
 introBass = get(:introBass)
 introSleepBass1 = get(:introSleepBass1)
@@ -97,11 +99,5 @@ live_loop :clap do
   end
   sleep 1
 end
+#Look for more samples seem to clap.
 
-live_loop :tom do
-  sync :metro
-  if get(:tom_on)
-    sample :drum_tom_mid_soft, amp: 1.5
-  end
-  sleep 0.5
-end

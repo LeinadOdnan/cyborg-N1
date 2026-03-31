@@ -1,4 +1,6 @@
-#Vars for song
+#Dance Brake
+
+#Vars for seed
 #Bass
 introBass = get(:introBass)
 danceBrakeSleepBass = get(:danceBrakeSleepBass)
@@ -48,8 +50,7 @@ live_loop :trumpetDanceBrake do
   end
   
   use_synth :prophet
-  sleep danceBrakeSleepBass.sum*10
-  10.times do
+  20.times do
     use_synth_defaults release: 0.25, amp: rrand(1.2, 1.8), cutoff: rrand(100,105), res: 0.9
     danceBrakeSleepTrumpet.each do |s|
       play introTrumpet.tick(:danceBrakeTrumpet)
@@ -77,5 +78,11 @@ live_loop :voiceDanceBrake do
   stop
 end
 
-
 #To add in live
+live_loop :tom do
+  sync :metro
+  if get(:tom_on)
+    sample :drum_tom_mid_soft, amp: 1.5
+  end
+  sleep 0.5
+end
