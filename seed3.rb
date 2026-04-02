@@ -22,6 +22,7 @@ live_loop :bassDanceBrake do
     sync :danceBrake
   end
 
+  use_synth :fm
   20.times do
     danceBrakeSleepBass.each do |s|
       play introBass.tick(:danceBrakeBass), release: 0.3, amp: rrand(1,1.5)

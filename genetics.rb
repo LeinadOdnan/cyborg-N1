@@ -84,6 +84,16 @@ set :verseSleepVoice, verseSleepVoiceVar
 danceBrakeSleepVoiceVar = danceBrakeSleepBassVar
 set :danceBrakeSleepVoice, danceBrakeSleepVoiceVar
 
+#Piano
+set :pianoPiano, (ring :as4, :cs5, :f4, :cs5, :gs4)
+pianoSleepPianoVar = randomPattern
+set :pianoSleepPiano, pianoSleepPianoVar
+
+#Blade
+set :pianoBlade, (ring :as4, :cs5, :f4, :cs5, :gs4)
+pianoSleepBladeVar = pianoSleepPianoVar
+set :pianoSleepBlade, pianoSleepBladeVar
+
 #Kick
 introSleepKick2Var = kickBeats(introSleepBass2Var.length - 2, (introSleepBass2Var.sum).to_i)
 set :introSleepKick2, introSleepKick2Var
@@ -106,6 +116,8 @@ set :verseSleepKickV, verseSleepKickVVar
 danceBrakeSleepKickBVar = kickBeats(danceBrakeSleepBassVar.length - 2, (danceBrakeSleepBassVar.sum).to_i)
 set :danceBrakeSleepKickB, danceBrakeSleepKickBVar
 
+pianoSleepKickPVar = kickBeats(pianoSleepPianoVar.length - 2, (pianoSleepPianoVar.sum).to_i)
+set :pianoSleepKickP, pianoSleepKickPVar
 
 live_loop :metro do
   sleep 0.5
