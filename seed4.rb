@@ -63,4 +63,10 @@ live_loop :bladePiano do
 end
 
 #To add in live
-#calls or seemed
+live_loop :call do
+  sync :metro
+  if get(:choir_on)
+    sample :ambi_choir, finish: 0.65, release: 0.1, amp: 1.5
+  end
+  sleep [8,13,18].choose
+end

@@ -29,6 +29,10 @@ live_loop :bassDanceBrake do
       sleep s
     end
   end
+  sync :metro
+  sleep 0.5
+  cue :piano
+  set :piano, true
   stop
 end
 
