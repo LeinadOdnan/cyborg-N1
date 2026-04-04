@@ -52,7 +52,6 @@ live_loop :bassIntro do #This leads the move along the part. We can change note,
   sync :metro
   sleep 0.5
   cue :verse
-  set :verse, true
   stop
 end
 

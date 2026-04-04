@@ -13,10 +13,7 @@ pianoSleepBlade = get(:pianoSleepBlade)
 pianoSleepKickP = get(:pianoSleepKickP)
 
 live_loop :pianoPianoSection do
-  if get(:piano)
-  else
-    sync :piano
-  end
+  sync :piano
 
   use_synth :piano 
   20.times do
@@ -26,14 +23,14 @@ live_loop :pianoPianoSection do
     end
   end
   sleep pianoSleepBlade.sum
+  sync :metro
+  sleep 5
+  cue :finalBass
   stop
 end
 
 live_loop :kickPiano do
-  if get(:piano)
-  else
-    sync :piano
-  end
+  sync :piano
 
   20.times do
     playKickPattern(pianoSleepKickP, 0.8)
@@ -43,10 +40,7 @@ live_loop :kickPiano do
 end
 
 live_loop :bladePiano do
-  if get(:piano)
-  else
-    sync :piano
-  end
+  sync :piano
   
   use_synth :blade
   sleep pianoSleepPiano.sum*10

@@ -19,11 +19,8 @@ verseVoice = get(:verseVoice)
 verseSleepVoice = get(:verseSleepVoice)
 
 live_loop :bassVerse do
-  if get(:verse)
-  else
-    sync :verse
-  end
-  
+  sync :verse
+
   use_synth :fm
   5.times do
     introSleepBass4.each do |s|
@@ -50,15 +47,11 @@ live_loop :bassVerse do
   sync :metro
   sleep 0.5
   cue :danceBrake
-  set :danceBrake, true
   stop
 end
 
 live_loop :kickVerse do
-  if get(:verse)
-  else
-    sync :verse
-  end
+  sync :verse
   
   5.times do
     playKickPattern(introSleepKick4B, 0.8)
@@ -76,10 +69,7 @@ live_loop :kickVerse do
 end
 
 live_loop :trumpetVerse do
-  if get(:verse)
-  else
-    sync :verse
-  end
+  sync :verse
   
   use_synth :prophet
   sleep introSleepBass4.sum*5
@@ -97,10 +87,7 @@ live_loop :trumpetVerse do
 end
 
 live_loop :voiceVerse do
-  if get(:verse)
-  else
     sync :verse
-  end
   
   use_synth :prophet
   sleep introSleepBass4.sum*5

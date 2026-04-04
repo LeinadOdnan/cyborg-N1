@@ -17,10 +17,7 @@ verseVoice = get(:verseVoice)
 danceBrakeSleepVoice = get(:danceBrakeSleepVoice)
 
 live_loop :bassDanceBrake do
-  if get(:danceBrake)
-  else
-    sync :danceBrake
-  end
+  sync :danceBrake
 
   use_synth :fm
   20.times do
@@ -32,15 +29,11 @@ live_loop :bassDanceBrake do
   sync :metro
   sleep 0.5
   cue :piano
-  set :piano, true
   stop
 end
 
 live_loop :kickDanceBrake do
-  if get(:danceBrake)
-  else
-    sync :danceBrake
-  end
+  sync :danceBrake
 
   20.times do
     playKickPattern(danceBrakeSleepKickB, 1)
@@ -49,10 +42,7 @@ live_loop :kickDanceBrake do
 end
 
 live_loop :trumpetDanceBrake do
-  if get(:danceBrake)
-  else
-    sync :danceBrake
-  end
+  sync :danceBrake
   
   use_synth :prophet
   20.times do
@@ -66,10 +56,7 @@ live_loop :trumpetDanceBrake do
 end
 
 live_loop :voiceDanceBrake do
-  if get(:danceBrake)
-  else
-    sync :danceBrake
-  end
+  sync :danceBrake
   
   use_synth :prophet
   sleep danceBrakeSleepBass.sum*10
