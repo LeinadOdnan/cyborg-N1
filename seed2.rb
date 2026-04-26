@@ -18,6 +18,9 @@ verseSleepKickV = get(:verseSleepKickV)
 verseVoice = get(:verseVoice)
 verseSleepVoice = get(:verseSleepVoice)
 
+#Sample
+electroSamples = get(:electroSamples)
+
 live_loop :bassVerse do
   sync :verse
 
@@ -87,7 +90,7 @@ live_loop :trumpetVerse do
 end
 
 live_loop :voiceVerse do
-    sync :verse
+  sync :verse
   
   use_synth :prophet
   sleep introSleepBass4.sum*5
@@ -112,4 +115,13 @@ live_loop :fx_break do
     sample :glitch_robot2, amp: 0.6
   end
   sleep [10,15,20].choose
+end
+
+live_loop :randomExternalSample do
+  sync :metro
+  if get(:randExtSamp_on)
+    fx_externalSample do
+      sample [electroSamples[3], electroSamples[4], electroSamples[5]].choose, rate: [0.9, 1, 1.1].choose, amp: [1, 0.8, 1.2].choose
+  end
+  sleep [0.5,1,1.5].choose
 end

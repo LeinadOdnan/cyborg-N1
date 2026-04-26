@@ -8,7 +8,7 @@ introSleepBass2 = get(:introSleepBass2)
 introSleepBass3 = get(:introSleepBass3)
 introSleepBass4 = get(:introSleepBass4)
 
-#trumpet
+#Trumpet
 introTrumpet = get(:introTrumpet)
 introSleepTrumpet3 = get(:introSleepTrumpet3)
 
@@ -17,6 +17,9 @@ introSleepKick2 = get(:introSleepKick2)
 introSleepKick3B = get(:introSleepKick3B)
 introSleepKick3T = get(:introSleepKick3T)
 introSleepKick4B = get(:introSleepKick4B)
+
+#Sample
+electroSamples = get(:electroSamples)
 
 live_loop :bassIntro do #This leads the move along the part. We can change note, amp and sleep but keeping a measure along a time.
   sync :metro
@@ -87,6 +90,24 @@ live_loop :trumpetIntro do
   stop
 end
 
+live_loop :samplesIntro do # This one accentuates the bass ... sometimes.
+  sync :metro
+  sleep introSleepBass1.sum*5
+  fx_externalSample do
+    10.times do
+      playExternalSample(electroSamples[0], introSleepKick2)
+    end
+    10.times do
+      playExternalSample(electroSamples[1], introSleepKick3B)
+      playExternalSample(electroSamples[1], introSleepKick3T)
+    end
+    5.times do
+      playExternalSample(electroSamples[2], introSleepKick4B)
+    end
+  end
+  stop
+end
+
 
 
 #To add in live
@@ -98,5 +119,5 @@ live_loop :clap do
   end
   sleep 1
 end
-#Look for more samples seem to clap.
+
 

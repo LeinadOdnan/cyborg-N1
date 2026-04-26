@@ -52,6 +52,24 @@ define :playKickPattern do |pattern, amp|
   end
   sleep pattern[-1]
 end
+
+#Play external samples
+define :playExternalSample do |externalSample, pattern|
+  pattern[0...-1].each do |s|
+    sleep s
+    sample externalSample, rate: [1.1, 1.15, 1.20].choose, amp: [0.5, 0.6, 0.7].choose
+  end
+  sleep pattern[-1]
+end
+
+# external sample effects
+define :fx_externalSample do |&block|
+  with_fx :lpf, cutoff: [100, 105, 110, 115, 120].choose, res: 0.7 do
+    with_fx :echo, phase: 0.25, mix: 0.1 do
+      block.call
+    end
+  end
+end
   
 #Vars for song
 #Bass
@@ -118,6 +136,11 @@ set :danceBrakeSleepKickB, danceBrakeSleepKickBVar
 
 pianoSleepKickPVar = kickBeats(pianoSleepPianoVar.length - 2, (pianoSleepPianoVar.sum).to_i)
 set :pianoSleepKickP, pianoSleepKickPVar
+
+#External Samples
+#Check the adress
+baseAddress = "D:/ARTISTA/Composición de canciones/COMPOSICIONES/Beats Relajantes 1/cyborg N1/cyborg-N1-1/samplesElectro/"
+set :electroSamples, [baseAddress + "get.wav", baseAddress + "come.wav", baseAddress + "feel.wav", baseAddress + "hey.wav", baseAddress + "right.wav", baseAddress + "uh.wav"]
 
 live_loop :metro do
   sleep 0.5
