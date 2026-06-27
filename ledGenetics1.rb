@@ -45,7 +45,26 @@ define :split_complementary_colors do
 end
 
 #pattern_density and pattern_activity to bri and speed.
-#First I will do a experiment to see min and max values to both functions, the I could transform to 0 to 255.
+define :pattern_density do |pattern|
+  pattern.length.to_f / pattern.sum
+end
+
+define :pattern_activity do |pattern|
+  pattern.map { |x| 1.0 / x }.sum / pattern.length
+end
+
+#It scales a value from a given range to a 0-255 range, useful for LED brightness and speed control.
+define :scale do |value,min,max|
+
+  value = [[value,min].max,max].min
+
+  (((value-min)/(max-min).to_f)*255).round
+
+end
+
+#Example
+#bri = scale(density,0.75,1.5) , min, max by tests: 0.75,1.5
+#speed = scale(activity,0.778,1.667) , min, max by tests: 0.778,1.667
 
 #VARS
 #COLORS
