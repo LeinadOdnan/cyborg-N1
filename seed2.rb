@@ -61,7 +61,6 @@ live_loop :kickVerse do
   end
   10.times do
     playKickPattern(introSleepKick4B, 0.6)
-    #add other rhythm instrument
   end
   10.times do
     playKickPattern(introSleepKick4B, 0.8)

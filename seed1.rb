@@ -90,7 +90,7 @@ live_loop :trumpetIntro do
   stop
 end
 
-live_loop :samplesIntro do # This one accentuates the bass ... sometimes.
+live_loop :samplesIntro do 
   sync :metro
   sleep introSleepBass1.sum*5
   fx_externalSample do

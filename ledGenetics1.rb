@@ -53,18 +53,20 @@ define :pattern_activity do |pattern|
   pattern.map { |x| 1.0 / x }.sum / pattern.length
 end
 
-#It scales a value from a given range to a 0-255 range, useful for LED brightness and speed control.
-define :scale do |value,min,max|
+#It scales a value from a given range to other range, useful for LED brightness , speed control and maybe others.
+define :scale do |value, in_min, in_max, out_min, out_max|
 
-  value = [[value,min].max,max].min
+  value = [[value, in_min].max, in_max].min
 
-  (((value-min)/(max-min).to_f)*255).round
+  (((value - in_min) / (in_max - in_min).to_f) * (out_max - out_min) + out_min).round
 
 end
 
-#Example
-#bri = scale(density,0.75,1.5) , min, max by tests: 0.75,1.5
-#speed = scale(activity,0.778,1.667) , min, max by tests: 0.778,1.667
+#Examples
+# Brightness (limited) , min, max by tests: 0.75,1.5
+#bri = scale(density, 0.75, 1.50, 30, 180)
+#Speed (all range), min, max by tests: 0.778,1.667
+#speed = scale(activity, 0.778, 1.667, 0, 255)
 
 #VARS
 #COLORS
@@ -77,3 +79,35 @@ puts colors[:secondary1]
 puts colors[:secondary2]
 
 
+#HASHES
+
+
+
+#EFFECTS
+#Live Loops
+Live_loop_fx = {
+  bass: :Scanner,
+  trumpet: :Plasma,
+  voice: :Noise4,
+  piano: :FireworksStarburst,
+  blade: :Blink
+}
+
+#Samples
+Samples_fx = {
+  kick: :Bpm,
+  int_live: :Twinklecat,
+  ext: :Fire2012
+}
+
+#Convertion of name effects to id effects, from v16.0
+Name_to_id_fx = {
+  Scanner: 40,
+  Plasma: 97,
+  FireworksStarburst: 89,
+  Noise4: 73,
+  Blink: 1,
+  Bpm: 68,
+  Twinklecat: 81,
+  Fire2012: 66,
+}
