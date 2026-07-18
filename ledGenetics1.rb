@@ -68,33 +68,66 @@ end
 #Speed (all range), min, max by tests: 0.778,1.667
 #speed = scale(activity, 0.778, 1.667, 0, 255)
 
+#Effect configuration, it gives the effect id and the parameters.
+deine :effect_config do |instrumentName, patternName|
+  effect_id = Name_to_id_fx[Intruments_fx[instrumentName]]
+  pattern = get(patternName)
+
+  #Tools to Parameters, temporaly 
+  density = pattern_density(pattern)
+  activity = pattern_activity(pattern)
+
+  # Brightness (limited) , min, max by tests: 0.75,1.5
+  bri = scale(density, 0.75, 1.50, 30, 180)
+  #Speed (all range), min, max by tests: 0.778,1.667
+  speed = scale(activity, 0.778, 1.667, 0, 255)
+
+
+  #If sentences for ache effect, to set the parameters.
+  If effect_id == 40 #Scanner
+    speed = scale(pattern_activity(pattern), 0.778, 1.667, 80, 220)
+    fadeRate = 120
+  elsif effect_id == 97 #Plasma
+    phase = 128
+    intensity = scale(pattern_density(pattern), 0.75, 1.50, 70, 220)
+  elsif effect_id == 89 #FireworksStarburst
+    
+
+
+  end
+
+  #To later, good option to API or JSON.
+  #{
+    #id: effect_id,
+    #bri: bri,
+    #speed: speed
+  #}
+
+
+end
+
+
+
 #VARS
 #COLORS
 colors = split_complementary_colors
 set :primaryColor, colors[:primary]
 set :secondaryColor1, colors[:secondary1]
 set :secondaryColor2, colors[:secondary2]
-puts colors[:primary]
-puts colors[:secondary1]
-puts colors[:secondary2]
+#puts colors[:primary]
+#puts colors[:secondary1]
+#puts colors[:secondary2]
 
 
 #HASHES
-
-
-
 #EFFECTS
-#Live Loops
-Live_loop_fx = {
+#Live Loops and Samples
+Intruments_fx = {
   bass: :Scanner,
   trumpet: :Plasma,
   voice: :Noise4,
   piano: :FireworksStarburst,
-  blade: :Blink
-}
-
-#Samples
-Samples_fx = {
+  blade: :Blink,
   kick: :Bpm,
   int_live: :Twinklecat,
   ext: :Fire2012
@@ -109,5 +142,8 @@ Name_to_id_fx = {
   Blink: 1,
   Bpm: 68,
   Twinklecat: 81,
-  Fire2012: 66,
+  Fire2012: 66
 }
+
+
+
