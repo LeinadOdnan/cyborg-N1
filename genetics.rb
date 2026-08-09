@@ -139,7 +139,7 @@ set :pianoSleepKickP, pianoSleepKickPVar
 
 #External Samples
 #Check the adress
-baseAddress = "D:/ARTISTA/Composición de canciones/COMPOSICIONES/Beats Relajantes 1/cyborg N1/cyborg-N1-1/samplesElectro/"
+baseAddress = "D:/Arte/Composiciones/cyborgN1/cyborg-N1/samplesElectro/"
 set :electroSamples, [baseAddress + "get.wav", baseAddress + "come.wav", baseAddress + "feel.wav", baseAddress + "hey.wav", baseAddress + "right.wav", baseAddress + "uh.wav"]
 
 live_loop :metro do
