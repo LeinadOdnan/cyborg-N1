@@ -121,6 +121,7 @@ live_loop :randomExternalSample do
   if get(:randExtSamp_on)
     fx_externalSample do
       sample [electroSamples[3], electroSamples[4], electroSamples[5]].choose, rate: [0.9, 1, 1.1].choose, amp: [1, 0.8, 1.2].choose
+    end
   end
   sleep [0.5,1,1.5].choose
 end
