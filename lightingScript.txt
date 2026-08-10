@@ -1,0 +1,86 @@
+#Live Loops and Samples
+Intruments_fx = {
+  bass: :Scanner,
+  trumpet: :Plasma,
+  voice: :Noise4,
+  piano: :FireworksStarburst,
+  blade: :Blink,
+  kick: :Bpm,
+  int_live: :Twinklecat,
+  ext: :Fire2012
+}
+
+Lighting Script
+
+#Intro
+bass
+introSleepBass1.sum*5
+
+int_live
+introSleepKick2.sum*10
+
+(bass
+introSleepBass3.sum
+trumpet
+introSleepTrumpet3.sum)*10
+
+int_live
+introSleepKick4B.sum*5
+
+sleep 0.5
+
+#Verse
+bass
+introSleepBass4.sum*5
+
+kick
+introSleepKick4B.sum*10
+
+(bass
+introSleepBass4.sum
+trumpet
+verseSleepTrumpet.sum
+voice
+verseSleepVoice.sum)*10
+
+sleep 0.5
+
+#Dance Brake
+trumpet
+danceBrakeSleepTrumpet.sum*10
+
+voice
+danceBrakeSleepVoice.sum*10
+
+sleep 0.5
+
+#Piano
+piano
+pianoSleepPiano.sum*10
+
+blade
+pianoSleepBlade.sum*11
+
+sleep 5
+
+#Final Bass
+kick
+introSleepKick4B.sum*5
+
+(bass
+introSleepBass4.sum
+trumpet
+verseSleepTrumpet.sum
+voice
+verseSleepVoice.sum)*5
+
+voice
+danceBrakeSleepVoice.sum*20
+
+
+
+
+
+
+
+

@@ -62,49 +62,63 @@ define :scale do |value, in_min, in_max, out_min, out_max|
 
 end
 
-#Examples
-# Brightness (limited) , min, max by tests: 0.75,1.5
-#bri = scale(density, 0.75, 1.50, 30, 180)
-#Speed (all range), min, max by tests: 0.778,1.667
-#speed = scale(activity, 0.778, 1.667, 0, 255)
+#range 
+# Brightness, min, max by tests: 0.75,1.5
+#Speed, min, max by tests: 0.778,1.667
 
-#Effect configuration, it gives the effect id and the parameters.
-deine :effect_config do |instrumentName, patternName|
-  effect_id = Name_to_id_fx[Intruments_fx[instrumentName]]
+# Effect configuration, it gives the effect id and the parameters.
+define :effect_config do |instrumentName, patternName|
+
+  effect = Instruments_fx[instrumentName]
+  effect_id = Name_to_id_fx[effect]
   pattern = get(patternName)
 
-  #Tools to Parameters, temporaly 
-  density = pattern_density(pattern)
-  activity = pattern_activity(pattern)
-
-  # Brightness (limited) , min, max by tests: 0.75,1.5
-  bri = scale(density, 0.75, 1.50, 30, 180)
-  #Speed (all range), min, max by tests: 0.778,1.667
-  speed = scale(activity, 0.778, 1.667, 0, 255)
-
-
-  #If sentences for ache effect, to set the parameters.
-  If effect_id == 40 #Scanner
+  # If sentences for each effect, to set the parameters.
+  if effect == :Scanner
     speed = scale(pattern_activity(pattern), 0.778, 1.667, 80, 220)
     fadeRate = 120
-  elsif effect_id == 97 #Plasma
+
+  elsif effect == :Plasma
     phase = 128
     intensity = scale(pattern_density(pattern), 0.75, 1.50, 70, 220)
-  elsif effect_id == 89 #FireworksStarburst
-    
 
+  elsif effect == :FireworksStarburst
+    chance = scale(pattern_activity(pattern), 0.778, 1.667, 30, 180)
+    fragments = 120
+    overlay = 0
 
+  elsif effect == :Noise4
+    speed = scale(pattern_activity(pattern), 0.778, 1.667, 60, 200)
+
+  elsif effect == :Blink
+    speed = scale(pattern_activity(pattern), 0.778, 1.667, 70, 220)
+    dutyCycle = 128
+
+  elsif effect == :Bpm
+    speed = scale(pattern_activity(pattern), 0.778, 1.667, 100, 220)
+    colorSpread = 140
+
+  elsif effect == :Twinklecat
+    speed = scale(pattern_activity(pattern), 0.778, 1.667, 80, 180)
+
+    twinkleDensity =
+      scale(pattern_density(pattern), 0.75, 1.50, 40, 220)
+
+  elsif effect == :Fire2012
+    cooling = 90
+    sparkRate = scale(pattern_activity(pattern), 0.778, 1.667, 40, 220)
+    boost = 140
   end
 
-  #To later, good option to API or JSON.
-  #{
-    #id: effect_id,
-    #bri: bri,
-    #speed: speed
-  #}
-
+  # To later, good option to API or JSON.
+  # {
+  #   id: effect_id,
+  #   bri: bri,
+  #   speed: speed
+  # }
 
 end
+
 
 
 
@@ -122,7 +136,7 @@ set :secondaryColor2, colors[:secondary2]
 #HASHES
 #EFFECTS
 #Live Loops and Samples
-Intruments_fx = {
+Instruments_fx = {
   bass: :Scanner,
   trumpet: :Plasma,
   voice: :Noise4,
